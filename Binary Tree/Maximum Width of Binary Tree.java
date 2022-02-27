@@ -51,3 +51,38 @@ class Solution {
         return ans;
     }
 }
+
+
+// SOL 2 -->
+
+class Solution {
+	public int widthOfBinaryTree(TreeNode root) {
+		if(root==null || (root.left==null &&root.right==null))
+			return 1;
+
+		int maxWidth = 0;
+		Map<TreeNode, Integer> map = new HashMap<>(); // <Nodee, Weight>
+		map.put(root, 0);
+		Queue<TreeNode> q = new LinkedList<>();
+		qu.offer(root);
+		while(!q.isEmpty()){
+			int size = q.size();
+			int left = map.get(q.peek());
+			while(size-->0){
+				TreeNode head = q.poll();
+				maxWidth = Math.max(maxWidth , map.get(head) - left+1);
+				if(head.left!=null){
+					q.offer(head.left);
+					map.put(head.left, 2 * map.get(head) );
+				}
+
+				if(head.right!=null){
+
+					q.offer(head.right);
+					map.put(head.right, 2 * map.get(head) + 1 );
+				}
+			}
+		}
+		return maxWidth;
+	}
+}
